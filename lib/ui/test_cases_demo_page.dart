@@ -1,3 +1,4 @@
+import 'package:contact_list_demo/ui/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_list_demo/utils/validators.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -242,13 +243,19 @@ class TestCasesDemoPageState extends State<TestCasesDemoPage> {
             final emailErrorMessage = EmailFormValidator.validate(_email);
             final passwordEmailMessage = PasswordFormValidator.validate(_password);
             if (emailErrorMessage == null && passwordEmailMessage == null) {
-              setState(() {
-                showLoader = true;
-              });
-              setState(() {
-                showLoader = false;
-                status = LOGGED_IN_MESSAGE;
-              });
+              // setState(() {
+              //   showLoader = true;
+              // });
+              // setState(() {
+              //   showLoader = false;
+              //   status = LOGGED_IN_MESSAGE;
+              // });
+              
+              // Navigate to Home page after successful login
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MenuPage(email: _email)),
+              );
             } else {
               /*
               show an message when email or password is 

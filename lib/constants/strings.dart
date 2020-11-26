@@ -8,3 +8,4 @@ const String PASSWORD_NOT_VALID_ERROR_MESSAGE = 'Please enter a valid password.'
 const String ENTER_SOME_TEXT_MESSAGE = 'Please enter some value.';
 const String NOT_LOGGED_IN_MESSAGE = 'Not Logged In';
 const String LOGGED_IN_MESSAGE = 'Logged In';
+const String WELCOME_MESSAGE = "Welcome to Atomic Structure!";
