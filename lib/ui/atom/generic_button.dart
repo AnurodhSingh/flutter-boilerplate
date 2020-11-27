@@ -8,12 +8,12 @@ class GenericButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FlatButton(
-    color: Colors.blue,
+    color: Colors.blueGrey,
     child: Text(
       this.buttonText,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: FontWeight.bold
       ),
     ),

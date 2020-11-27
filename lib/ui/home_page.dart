@@ -1,3 +1,4 @@
+import 'package:contact_list_demo/ui/atom/app_bar_heading.dart';
 import 'package:contact_list_demo/ui/atom/text_label.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_list_demo/constants/strings.dart';
@@ -5,8 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:contact_list_demo/ui/menu_page.dart';
 import 'package:contact_list_demo/utils/validators.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'atom/generic_button.dart';
 import 'atom/text_input.dart';
 import 'menu_page.dart';
+import 'molecule/app_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -48,6 +51,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      appBar: AppBarWidget(height: 50, text: "Login Form"),
       body: LoadingOverlay(
         isLoading: showLoader,
         opacity: 0.0,
@@ -57,26 +61,12 @@ class HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     left: 2.0, right: 2.0, bottom: 2.0, top: 10.0),
                 child: Column(children: [
-                  headingText(),
                   detailsForm(),
                   loginButton(),
                   statusText()
                 ]))),
       ),
     );
-  }
-
-  Widget headingText() {
-    return (Container(
-        alignment: Alignment.center,
-        child: SizedBox(
-          height: 50.0,
-          child: TextLabel(
-            text: "Login Form",
-            size: 20.0,
-            color: Colors.black,
-          ),
-        )));
   }
 
   Widget detailsForm() {
@@ -161,61 +151,51 @@ class HomePageState extends State<HomePage> {
             ]))));
   }
 
+  void onLoginPressed() async {
+    var _email = _emailController.value.text;
+    var _password = _passwordController.value.text;
+    final emailErrorMessage = EmailFormValidator.validate(_email);
+    final passwordEmailMessage =
+        PasswordFormValidator.validate(_password);
+    if (emailErrorMessage == null && passwordEmailMessage == null) {
+      // Navigate to Home page after successful login
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool(LOGIN_STATUS, true);
+      await prefs.setString(USER_EMAIL, _email);
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MenuPage(email: _email)),
+          ModalRoute.withName("/Menu"));
+    } else {
+      /*
+      show an message when email or password is 
+      empty or invalid.
+      */
+      String errorText = '';
+      if (emailErrorMessage != null) {
+        errorText = emailErrorMessage;
+      } else {
+        errorText = passwordEmailMessage;
+      }
+      setState(() {
+        status = errorText;
+      });
+    }
+  }
+
   Widget loginButton() {
     return (Container(
         margin: EdgeInsets.only(top: 10),
         alignment: Alignment.topCenter,
-        child: FlatButton(
-          color: Colors.transparent,
-          textColor: Colors.blue,
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          splashColor: Color.fromARGB(0, 0, 0, 0),
-          padding: EdgeInsets.all(8.0),
-          onPressed: () async {
-            var _email = _emailController.value.text;
-            var _password = _passwordController.value.text;
-            final emailErrorMessage = EmailFormValidator.validate(_email);
-            final passwordEmailMessage =
-                PasswordFormValidator.validate(_password);
-            if (emailErrorMessage == null && passwordEmailMessage == null) {
-              // setState(() {
-              //   showLoader = true;
-              // });
-              // setState(() {
-              //   showLoader = false;
-              //   status = LOGGED_IN_MESSAGE;
-              // });
-
-              // Navigate to Home page after successful login
-
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.setBool(LOGIN_STATUS, true);
-              await prefs.setString(USER_EMAIL, _email);
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MenuPage(email: _email)),
-                  ModalRoute.withName("/Menu"));
-            } else {
-              /*
-              show an message when email or password is 
-              empty or invalid.
-              */
-              String errorText = '';
-              if (emailErrorMessage != null) {
-                errorText = emailErrorMessage;
-              } else {
-                errorText = passwordEmailMessage;
-              }
-              setState(() {
-                status = errorText;
-              });
-            }
-          },
-          child: TextLabel(text: "Login", size: 20.0),
-        )));
+        child: GenericButton(
+          buttonText: "Login",
+          onButtonPressed: onLoginPressed,
+        ),
+      )
+    );
   }
 
   Widget statusText() {
