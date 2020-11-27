@@ -1,3 +1,4 @@
+import 'package:contact_list_demo/ui/atom/text_label.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_list_demo/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,9 +70,10 @@ class HomePageState extends State<HomePage> {
         alignment: Alignment.center,
         child: SizedBox(
           height: 50.0,
-          child: Text(
-            "Login Form",
-            style: TextStyle(fontSize: 20.0, color: Colors.black),
+          child: TextLabel(
+            text: "Login Form",
+            size: 20.0,
+            color: Colors.black,
           ),
         )));
   }
@@ -91,9 +93,10 @@ class HomePageState extends State<HomePage> {
                 width: 130,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Text(
-                    "Email",
-                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                  child: TextLabel(
+                    text: "Email",
+                    size: 15.0,
+                    color: Colors.black,
                   ),
                 )),
           ),
@@ -136,9 +139,10 @@ class HomePageState extends State<HomePage> {
                     width: 130,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Text(
-                        "Password",
-                        style: TextStyle(fontSize: 15.0, color: Colors.black),
+                      child: TextLabel(
+                        text: "Password",
+                        size: 15.0,
+                        color: Colors.black,
                       ),
                     )),
               ),
@@ -223,10 +227,7 @@ class HomePageState extends State<HomePage> {
               });
             }
           },
-          child: Text(
-            "Login",
-            style: TextStyle(fontSize: 20.0),
-          ),
+          child: TextLabel(text: "Login", size: 20.0),
         )));
   }
 
