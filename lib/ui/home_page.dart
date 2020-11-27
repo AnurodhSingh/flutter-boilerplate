@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:contact_list_demo/ui/menu_page.dart';
 import 'package:contact_list_demo/utils/validators.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'atom/text_input.dart';
 import 'menu_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -103,26 +104,20 @@ class HomePageState extends State<HomePage> {
           Flexible(
               flex: 2,
               child: Form(
-                child: TextFormField(
-                  key: Key('_emailKey'),
-                  controller: _emailController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black12, width: 1.0),
-                    ),
-                    hintText: 'Enter Email',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    return EmailFormValidator.validate(value);
-                  },
+                  child: TextInput(
+                key: Key('_emailKey'),
+                controller: _emailController,
+                placeholder: 'Enter Email',
+                borderStyle: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
                 ),
-              ))
+                activeBorderStyle: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black12, width: 1.0),
+                ),
+                validator: (value) {
+                  return EmailFormValidator.validate(value);
+                },
+              )))
         ])));
   }
 
@@ -149,28 +144,20 @@ class HomePageState extends State<HomePage> {
               Flexible(
                   flex: 2,
                   child: Form(
-                    child: TextFormField(
-                        key: Key('_passwordKey'),
-                        controller: _passwordController,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 10.0),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black12, width: 1.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black12, width: 1.0),
-                          ),
-                          hintText: 'Enter Password',
-                          border: const OutlineInputBorder(),
-                        ),
-                        validator: (value) {
-                          return EmailFormValidator.validate(value);
-                        }),
-                  ))
+                      child: TextInput(
+                    key: Key('_passwordKey'),
+                    controller: _passwordController,
+                    placeholder: 'Enter Password',
+                    borderStyle: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black12, width: 1.0),
+                    ),
+                    activeBorderStyle: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black12, width: 1.0),
+                    ),
+                    validator: (value) {
+                      return PasswordFormValidator.validate(value);
+                    },
+                  )))
             ]))));
   }
 
