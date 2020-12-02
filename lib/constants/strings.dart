@@ -12,3 +12,5 @@ const String LOGGED_IN_MESSAGE = 'Logged In';
 const String WELCOME_MESSAGE = "Welcome to Atomic Structure!";
 const String LOGIN_STATUS = "LOGIN_STATUS";
 const String USER_EMAIL = "USER_EMAIL";
+const String LOGIN_HEADING = "Login Form";
+const String MENU_HEADING = "Menu";

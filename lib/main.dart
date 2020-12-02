@@ -1,7 +1,7 @@
+import 'package:contact_list_demo/ui/page/home_page.dart';
+import 'package:contact_list_demo/ui/page/menu_page.dart';
 import 'package:flutter/material.dart';
-import 'package:contact_list_demo/ui/home_page.dart';
 
-import 'ui/menu_page.dart';
 
 void main() => runApp(MyApp());
 

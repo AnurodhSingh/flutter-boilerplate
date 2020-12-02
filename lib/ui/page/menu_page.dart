@@ -1,8 +1,12 @@
 import 'package:contact_list_demo/constants/strings.dart';
+import 'package:contact_list_demo/ui/atom/generic_button.dart';
+import 'package:contact_list_demo/ui/atom/text_label.dart';
+import 'package:contact_list_demo/ui/atom/welcome_heading.dart';
+import 'package:contact_list_demo/ui/molecule/app_bar_widget.dart';
+import 'package:contact_list_demo/ui/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home_page.dart';
 
 class MenuPage extends StatefulWidget {
   MenuPage({Key key, this.title, this.email});
@@ -23,6 +27,7 @@ class MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      appBar: AppBarWidget(height: 50, text: MENU_HEADING),
       body: SafeArea(
           child: Container(
         color: Colors.white,
@@ -30,31 +35,14 @@ class MenuPageState extends State<MenuPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                WELCOME_MESSAGE,
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-                textAlign: TextAlign.center,
+              WelcomeHeading(text: WELCOME_MESSAGE),
+              TextLabel(
+                text: widget.email,
+                size: 25,
               ),
-              Text(
-                widget.email,
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-              FlatButton(
-                color: Colors.blueGrey,
-                onPressed: () {
-                  onLogout();
-                },
-                child: Text(
-                  "Logout",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
+              GenericButton(
+                buttonText: "Logout",
+                onButtonPressed: onLogout,
               ),
             ],
           ),
