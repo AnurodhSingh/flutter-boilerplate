@@ -1,5 +1,5 @@
 import 'package:contact_list_demo/ui/molecule/app_bar_widget.dart';
-import 'package:contact_list_demo/ui/molecule/login_form.dart';
+import 'package:contact_list_demo/ui/organism/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:contact_list_demo/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
