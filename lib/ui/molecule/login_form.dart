@@ -1,6 +1,6 @@
 import 'package:contact_list_demo/constants/strings.dart';
 import 'package:contact_list_demo/ui/atom/generic_button.dart';
-import 'package:contact_list_demo/ui/atom/text_input.dart';
+import 'package:contact_list_demo/ui/molecule/labelled_text_input.dart';
 import 'package:contact_list_demo/ui/page/menu_page.dart';
 import 'package:contact_list_demo/utils/validators.dart';
 import 'package:flutter/material.dart';
@@ -23,33 +23,15 @@ class LoginFormState extends State<LoginForm> {
     super.initState();
   }
 
-  Widget buildGenericInputRow(String type) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Text(type),
-        ),
-        SizedBox(width: 40),
-        Expanded(
-          flex: 4,
-          child: TextInput(
-            key: Key('_emailKey'),
-            controller: type == "Email" ? _emailController : _passwordController,
-            placeholder: 'Enter $type',
-            borderStyle: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black12, width: 1.0),
-            ),
-            activeBorderStyle: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black12, width: 1.0),
-            ),
-            validator: (value) {
-              return type == "Email" ? EmailFormValidator.validate(value) : PasswordFormValidator.validate(value);
-            },
-          )
-        )
-      ],
+  Widget buildGenericInputRow(String lebelText, TextEditingController inputController, dynamic validator) {
+    return (
+      LabelledTextInput(
+        labelText: lebelText,
+        inputController: inputController,
+        inputValidator: validator
+      )
     );
+
   }
 
   void onLoginPressed() async {
@@ -129,9 +111,9 @@ class LoginFormState extends State<LoginForm> {
       child: Form(
         child: Column(
           children: [
-            buildGenericInputRow("Email"),
+            buildGenericInputRow("Email", _emailController, (value)=>EmailFormValidator.validate(value)),
             SizedBox(height: 15),
-            buildGenericInputRow("Password"),
+            buildGenericInputRow("Password", _passwordController, (value)=>PasswordFormValidator.validate(value)),
             buildLoginButton(),
             buildStatusText(),
           ],
